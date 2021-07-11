@@ -4,6 +4,7 @@ import { createAuth } from '@keystone-next/auth';
 
 // import { lists } from './schema';
 import { Plant } from './schemas/Plant';
+import { PlantZone } from './schemas/PlantZone';
 import { User } from './schemas/User';
 
 require('dotenv').config()
@@ -48,7 +49,8 @@ export default withAuth(
     },
     lists: createSchema({
       Plant,
-      User
+      User,
+      PlantZone,
     }),
     session,
   })

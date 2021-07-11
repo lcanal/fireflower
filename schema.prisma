@@ -9,9 +9,10 @@ generator client {
 }
 
 model Plant {
-  id        String  @id @default(cuid())
-  name      String?
-  latinName String?
+  id         String      @id @default(cuid())
+  name       String?
+  latinName  String?
+  plantZones PlantZone[] @relation("Plant_plantZones_PlantZone_plants")
 }
 
 model User {
@@ -19,4 +20,10 @@ model User {
   name     String?
   email    String? @unique
   password String?
+}
+
+model PlantZone {
+  id     String  @id @default(cuid())
+  name   String?
+  plants Plant[] @relation("Plant_plantZones_PlantZone_plants")
 }

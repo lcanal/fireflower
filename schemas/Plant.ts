@@ -1,4 +1,4 @@
-import { text } from "@keystone-next/fields";
+import { relationship, text } from "@keystone-next/fields";
 import { list } from "@keystone-next/keystone/schema";
 
 export const Plant = list({
@@ -9,6 +9,15 @@ export const Plant = list({
   },
   fields: {
     name: text({ isRequired: true }),
-    latinName: text({ isRequired: true })
+    latinName: text({ isRequired: false }),
+    plantZones: relationship({ 
+      ref: 'PlantZone.plants', 
+      ui: {
+        displayMode: 'cards',
+        cardFields: ['name'],
+        linkToItem: true,
+        inlineCreate: { fields: ['name']},
+      },
+      many: true })
   }
 });
