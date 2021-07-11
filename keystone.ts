@@ -51,13 +51,6 @@ export default withAuth(
       User,
       PlantZone,
     }),
-    session,
-    images: {
-      upload: 'local',
-      local: {
-        storagePath: 'public/images',
-        baseUrl: '/images',
-      }
-    }
+    session
   })
 );
