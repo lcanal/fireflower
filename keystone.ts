@@ -1,8 +1,10 @@
-import { config } from '@keystone-next/keystone/schema';
+import { config, createSchema } from '@keystone-next/keystone/schema';
 import { statelessSessions } from '@keystone-next/keystone/session';
 import { createAuth } from '@keystone-next/auth';
 
-import { lists } from './schema';
+// import { lists } from './schema';
+import { Plant } from './schemas/Plant';
+import { User } from './schemas/User';
 
 require('dotenv').config()
 
@@ -44,7 +46,10 @@ export default withAuth(
     ui: {
       isAccessAllowed: (context) => !!context.session?.data,
     },
-    lists,
+    lists: createSchema({
+      Plant,
+      User
+    }),
     session,
   })
 );
