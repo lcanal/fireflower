@@ -7,12 +7,9 @@ export const PlantZone = list({
   },
   fields: {
     name: text({ isRequired: true }),
+    // TODO: Add a map zone or region field
     plants: relationship({ 
       ref: 'Plant.plantZones',
-      ui: {
-        linkToItem: false,
-        displayMode: 'count',
-      },
       many: true,
     })
   }

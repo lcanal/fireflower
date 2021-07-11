@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { config, createSchema } from '@keystone-next/keystone/schema';
 import { statelessSessions } from '@keystone-next/keystone/session';
 import { createAuth } from '@keystone-next/auth';
@@ -6,8 +7,6 @@ import { createAuth } from '@keystone-next/auth';
 import { Plant } from './schemas/Plant';
 import { PlantZone } from './schemas/PlantZone';
 import { User } from './schemas/User';
-
-require('dotenv').config()
 
 let sessionSecret = process.env.SESSION_SECRET;
 
@@ -53,5 +52,12 @@ export default withAuth(
       PlantZone,
     }),
     session,
+    images: {
+      upload: 'local',
+      local: {
+        storagePath: 'public/images',
+        baseUrl: '/images',
+      }
+    }
   })
 );

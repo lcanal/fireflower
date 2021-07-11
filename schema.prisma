@@ -9,10 +9,12 @@ generator client {
 }
 
 model Plant {
-  id         String      @id @default(cuid())
-  name       String?
-  latinName  String?
-  plantZones PlantZone[] @relation("Plant_plantZones_PlantZone_plants")
+  id          String      @id @default(cuid())
+  name        String?
+  latinName   String?
+  description Json?
+  photo       Json?
+  plantZones  PlantZone[] @relation("Plant_plantZones_PlantZone_plants")
 }
 
 model User {

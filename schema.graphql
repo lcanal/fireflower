@@ -5,6 +5,8 @@ type Plant {
   id: ID!
   name: String
   latinName: String
+  description: Plant_description_DocumentField
+  photo: CloudinaryImage_File
   plantZones(
     where: PlantZoneWhereInput! = {}
     search: String
@@ -27,6 +29,59 @@ type Plant {
       reason: "This query will be removed in a future version. Please use plantZonesCount instead."
     )
   plantZonesCount(where: PlantZoneWhereInput! = {}): Int
+}
+
+type Plant_description_DocumentField {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+type CloudinaryImage_File {
+  id: ID
+  filename: String
+  originalFilename: String
+  mimetype: String
+  encoding: String
+  publicUrl: String
+  publicUrlTransformed(transformation: CloudinaryImageFormat): String
+}
+
+"""
+Mirrors the formatting options [Cloudinary provides](https://cloudinary.com/documentation/image_transformation_reference).
+All options are strings as they ultimately end up in a URL.
+"""
+input CloudinaryImageFormat {
+  """
+   Rewrites the filename to be this pretty string. Do not include `/` or `.`
+  """
+  prettyName: String
+  width: String
+  height: String
+  crop: String
+  aspect_ratio: String
+  gravity: String
+  zoom: String
+  x: String
+  y: String
+  format: String
+  fetch_format: String
+  quality: String
+  radius: String
+  angle: String
+  effect: String
+  opacity: String
+  border: String
+  background: String
+  overlay: String
+  underlay: String
+  default_image: String
+  delay: String
+  color: String
+  color_space: String
+  dpr: String
+  page: String
+  density: String
+  flags: String
+  transformation: String
 }
 
 type _QueryMeta {
@@ -80,6 +135,10 @@ input PlantWhereInput {
   latinName_not_ends_with_i: String
   latinName_in: [String]
   latinName_not_in: [String]
+  photo: String
+  photo_not: String
+  photo_in: [String]
+  photo_not_in: [String]
 
   """
    condition must be true for all nodes
@@ -124,8 +183,15 @@ enum OrderDirection {
 input PlantUpdateInput {
   name: String
   latinName: String
+  description: JSON
+  photo: Upload
   plantZones: PlantZoneRelateToManyInput
 }
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
 
 input PlantZoneRelateToManyInput {
   create: [PlantZoneCreateInput]
@@ -142,6 +208,8 @@ input PlantsUpdateInput {
 input PlantCreateInput {
   name: String
   latinName: String
+  description: JSON
+  photo: Upload
   plantZones: PlantZoneRelateToManyInput
 }
 
